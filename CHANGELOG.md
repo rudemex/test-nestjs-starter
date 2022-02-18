@@ -2,6 +2,8 @@
 
 ---
 
+## [0.1.0](https://github.com/rudemex/test-nestjs-starter/compare/v0.0.2...v0.1.0) (2022-02-18)
+
 ### [0.0.2](https://github.com/rudemex/test-nestjs-starter/compare/v0.0.2-alpha.3...v0.0.2) (2022-02-18)
 
 ### [0.0.2-alpha.3](https://github.com/rudemex/test-nestjs-starter/compare/v0.0.2-alpha.2...v0.0.2-alpha.3) (2022-02-18)
