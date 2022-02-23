@@ -83,13 +83,3 @@ jobs:
       - name: "🐳 Docker build"
         run: |
           docker build -t ${{ github.event.repository.name }} .
-
-      - name: "🐳 Docker tag"
-        run: |
-          docker tag ${{ github.event.repository.name }} ${DOCKER_USER}/${{ github.event.repository.name }}:${{ github.sha }}
-          docker tag ${{ github.event.repository.name }} ${DOCKER_USER}/${{ github.event.repository.name }}:latest
-
-      - name: "🐳 Docker push"
-        run: |
-          docker push ${DOCKER_USER}/${{ github.event.repository.name }}:${{ github.sha }}
-          docker push ${DOCKER_USER}/${{ github.event.repository.name }}:latest

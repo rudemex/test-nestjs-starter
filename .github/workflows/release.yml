@@ -16,6 +16,8 @@ on:
 env:
   GITHUB_TOKEN: ${{ secrets.GH_TOKEN }}
   GITHUB_EMAIL: ${{ secrets.GH_EMAIL }}
+  DOCKER_USER: ${{ secrets.DOCKER_USER }}
+  DOCKER_PASSWORD: ${{ secrets.DOCKER_PASSWORD }}
 
 jobs:
   setup:
@@ -82,6 +84,24 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ secrets.GH_TOKEN }}
           SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
+
+      - name: "🐳 Docker login"
+        run: |
+          docker login -u ${DOCKER_USER} -p ${DOCKER_PASSWORD}
+
+      - name: "🐳 Docker build"
+        run: |
+          docker build -t ${{ github.event.repository.name }} .
+
+      - name: "🐳 Docker tag"
+        run: |
+          docker tag ${{ github.event.repository.name }} ${DOCKER_USER}/${{ github.event.repository.name }}:${{ github.sha }}
+          docker tag ${{ github.event.repository.name }} ${DOCKER_USER}/${{ github.event.repository.name }}:latest
+
+      - name: "🐳 Docker push"
+        run: |
+          docker push ${DOCKER_USER}/${{ github.event.repository.name }}:${{ github.sha }}
+          docker push ${DOCKER_USER}/${{ github.event.repository.name }}:latest    
 
       - name: "🏷️ Create Release as ${{ github.event.inputs.release }} version"
         run: |
