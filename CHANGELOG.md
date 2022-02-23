@@ -2,6 +2,13 @@
 
 ---
 
+### [0.1.2-alpha.1](https://github.com/rudemex/test-nestjs-starter/compare/v0.1.2-alpha.0...v0.1.2-alpha.1) (2022-02-23)
+
+
+### 👨‍💻 Chores
+
+* update pipeline release docker ([a14a828](https://github.com/rudemex/test-nestjs-starter/commit/a14a828d1dd339d5136d5e876fd4d8b1b7bb4d50))
+
 ### [0.1.2-alpha.0](https://github.com/rudemex/test-nestjs-starter/compare/v0.1.1...v0.1.2-alpha.0) (2022-02-23)
 
 
