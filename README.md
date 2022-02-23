@@ -8,7 +8,7 @@
     <img src="https://img.shields.io/static/v1.svg?style=flat&label=Npm&message=v6.14.10&labelColor=CB3837&logoColor=FFFFFF&color=757575&logo=npm" alt="Npm"/>
     <img src="https://img.shields.io/static/v1.svg?style=flat&label=NestJs&message=v8.2.6&labelColor=E0234E&logoColor=FFFFFF&color=757575&logo=Nestjs" alt="NestJs"/>
     <a href="https://github.com/rudemex/nestjs-starter/releases/latest">
-        <img alt="Last Release" src="https://img.shields.io/github/v/tag/rudemex/nestjs-starter?label=release">
+        <img alt="Last Release" src="https://img.shields.io/github/v/tag/rudemex/test-nestjs-starter?label=release">
     </a>
     <a href="./license.md">
         <img alt="GitHub license" src="https://img.shields.io/github/license/rudemex/nestjs-starter?style=flat">
@@ -300,11 +300,11 @@ referencia [`conventional commits`](https://www.conventionalcommits.org/en/v1.0.
 
 ## 🏷️ Versionado
 
-Este starter cuenta con la posibilidad de auto versionarse por medio del workflow de GitHub Actions (`./github/workflows/release.yml`), ya que utiliza la dependencia [standard-version](https://github.com/conventional-changelog/standard-version), actualmente está configurado para incrementar la version en un archivo custom y no en el package.json.
+Este starter cuenta con la posibilidad de auto versionarse por medio del workflow de GitHub Actions (`./github/workflows/release.yml`), ya que utiliza la dependencia [standard-version](https://github.com/conventional-changelog/standard-version) y los `conventional commits` del repo. Actualmente está configurado para incrementar la version en un archivo custom y no en el package.json.
 
 Para poder realizar el versionado correcto en su proyecto, siga estos pasos.
 
-- Asegurarse de que la version del `package.json` este en un valor inicial de `0.0.1` o `1.0.0`.
+- Asegurarse de que la version del `package.json` este en un valor inicial. Ej. `0.0.1` o `1.0.0`.
 - Correr el siguiente script para borrar cualquier posible tag local o remoto: <br>`git tag -d $(git tag -l) && git push origin --delete $(git tag -l)`
 - Borrar los archivos `CHANGELOG.md` y `VERSION_TRACKER.txt`
 - Editar el archivo `.versionrc` borrando la configuración del **bumpFile**, y editando él `owner` y el nombre del `repo`.
