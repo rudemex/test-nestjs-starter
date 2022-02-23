@@ -85,24 +85,6 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.GH_TOKEN }}
           SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
 
-      - name: "🐳 Docker login"
-        run: |
-          docker login -u ${DOCKER_USER} -p ${DOCKER_PASSWORD}
-
-      - name: "🐳 Docker build"
-        run: |
-          docker build -t ${{ github.event.repository.name }} .
-
-      - name: "🐳 Docker tag"
-        run: |
-          docker tag ${{ github.event.repository.name }} ${DOCKER_USER}/${{ github.event.repository.name }}:${{ github.sha }}
-          docker tag ${{ github.event.repository.name }} ${DOCKER_USER}/${{ github.event.repository.name }}:latest
-
-      - name: "🐳 Docker push"
-        run: |
-          docker push ${DOCKER_USER}/${{ github.event.repository.name }}:${{ github.sha }}
-          docker push ${DOCKER_USER}/${{ github.event.repository.name }}:latest    
-
       - name: "🏷️ Create Release as ${{ github.event.inputs.release }} version"
         run: |
           git config --global user.name "GitHub CD bot"
@@ -114,6 +96,25 @@ jobs:
           fi          
           git push --follow-tags origin master
           echo "LATEST_TAG=$(git describe --abbrev=0 --tags)" >> $GITHUB_ENV
+
+      - name: "🐳 Docker"
+        run: |
+          docker login -u ${DOCKER_USER} -p ${DOCKER_PASSWORD}
+          docker build -t ${{ github.event.repository.name }} .
+          
+          if ${{github.event.inputs.release == 'pre-release'}}; then
+            # prerelease alpha
+            docker tag ${{ github.event.repository.name }} ${DOCKER_USER}/${{ github.event.repository.name }}:${{ github.sha }}
+            docker tag ${{ github.event.repository.name }} ${DOCKER_USER}/${{ github.event.repository.name }}:${{env.LATEST_TAG}}
+            docker push ${DOCKER_USER}/${{ github.event.repository.name }}:${{ github.sha }}
+            docker push ${DOCKER_USER}/${{ github.event.repository.name }}:${{env.LATEST_TAG}}   
+          else
+            # release-as 
+            docker tag ${{ github.event.repository.name }} ${DOCKER_USER}/${{ github.event.repository.name }}:${{ github.sha }}
+            docker tag ${{ github.event.repository.name }} ${DOCKER_USER}/${{ github.event.repository.name }}:latest
+            docker push ${DOCKER_USER}/${{ github.event.repository.name }}:${{ github.sha }}
+            docker push ${DOCKER_USER}/${{ github.event.repository.name }}:latest   
+          fi        
 
       - name: "📄 Create Changelog"
         uses: Bullrich/generate-release-changelog@master
