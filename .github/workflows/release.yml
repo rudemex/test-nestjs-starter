@@ -101,7 +101,6 @@ jobs:
         run: |
           docker login -u ${DOCKER_USER} -p ${DOCKER_PASSWORD}
           docker build -t ${{ github.event.repository.name }} .
-          
           if ${{github.event.inputs.release == 'pre-release'}}; then
             # prerelease alpha
             docker tag ${{ github.event.repository.name }} ${DOCKER_USER}/${{ github.event.repository.name }}:${{ github.sha }}
@@ -111,8 +110,10 @@ jobs:
           else
             # release-as 
             docker tag ${{ github.event.repository.name }} ${DOCKER_USER}/${{ github.event.repository.name }}:${{ github.sha }}
+            docker tag ${{ github.event.repository.name }} ${DOCKER_USER}/${{ github.event.repository.name }}:${{env.LATEST_TAG}}
             docker tag ${{ github.event.repository.name }} ${DOCKER_USER}/${{ github.event.repository.name }}:latest
             docker push ${DOCKER_USER}/${{ github.event.repository.name }}:${{ github.sha }}
+            docker push ${DOCKER_USER}/${{ github.event.repository.name }}:${{env.LATEST_TAG}}  
             docker push ${DOCKER_USER}/${{ github.event.repository.name }}:latest   
           fi        
 
