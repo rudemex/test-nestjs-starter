@@ -2,6 +2,13 @@
 
 ---
 
+### [0.1.2-alpha.0](https://github.com/rudemex/test-nestjs-starter/compare/v0.1.1...v0.1.2-alpha.0) (2022-02-23)
+
+
+### 👨‍💻 Chores
+
+* update workflow release ([a6d3be7](https://github.com/rudemex/test-nestjs-starter/commit/a6d3be733be1f551422ee04d8e7b0827e83a68fb))
+
 ### [0.1.1](https://github.com/rudemex/test-nestjs-starter/compare/v0.1.0...v0.1.1) (2022-02-23)
 
 
